@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AO3 FicTracker
 // @author       infiniMotis
-// @version      1.6.7.3
+// @version      1.6.7.4
 // @namespace    https://github.com/infiniMotis/AO3-FicTracker
 // @description  Track your favorite, finished, to-read and disliked fanfics on AO3 with sync across devices. Customizable tags and highlights make it easy to manage and spot your tracked works. Full UI customization on the preferences page.
 // @license      GNU GPLv3
@@ -176,7 +176,7 @@
     // Utility function to replace bookmark note placeholders with fic details
     function fillBookmarkNoteTemplate(template, ficData) {
         let result = template;
-        
+
         const placeholders = {
             '{AUTHOR}': `<a href="/users/${encodeURIComponent(ficData.author)}">${ficData.author}</a>`,
             '{TITLE}': `<a href="/works/${ficData.workId}">${ficData.title}</a>`,
@@ -193,7 +193,7 @@
         for (const [key, value] of Object.entries(placeholders)) {
             result = result.replaceAll(key, value ?? "");
         }
-        
+
         return `<div><abbr title="ft_bookmark_note" style="display:none"></abbr>${result}</div>`;
     }
 
@@ -1424,13 +1424,13 @@
                 const hasNoData = (bookmarkData.notes === "" || noteIsOnlyPrefill)
                     && bookmarkData.bookmarkTags.length === 0
                     && bookmarkData.collections.length === 0;
-                
+
 
                 if (settings.deleteEmptyBookmarks && hasNoData) {
                     DEBUG && console.log(`[FicTracker] Deleting empty bookmark ID: ${bookmarkData.bookmarkId}`);
                     await requestManager.deleteBookmark(bookmarkData.bookmarkId, authenticityToken);
                     bookmarkData.bookmarkId = bookmarkData.workId;
-                    
+
                 } else {
                     // Update the existing bookmark
                     await requestManager.updateBookmark(bookmarkData.bookmarkId, authenticityToken, bookmarkData);
@@ -3195,7 +3195,8 @@
                     /\/collections\/.+/,
                     /\/works\?commit=Sort/,
                     /\/works\?work_search/,
-                    /\/tags\/.*\/works/
+                    /\/tags\/.*\/works/,
+                    /\/users\/.*\/readings/
                 ],
                 () => {
                     const worksListHandler = new WorksListHandler();
