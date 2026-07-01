@@ -75,6 +75,7 @@
                 borderSize: 0,
                 opacity: .6,
                 borderOpacity: 255,
+                shadowOpacity: 255,
                 hide: false,
                 highlightPriority: 1
             },
@@ -92,6 +93,7 @@
                 borderSize: 2,
                 opacity: 1,
                 borderOpacity: 255,
+                shadowOpacity: 255,
                 hide: false,
                 highlightPriority: 1
             },
@@ -109,6 +111,7 @@
                 borderSize: 2,
                 opacity: 1,
                 borderOpacity: 255,
+                shadowOpacity: 255,
                 hide: false,
                 highlightPriority: 1
             },
@@ -126,6 +129,7 @@
                 borderSize: 0,
                 opacity: .6,
                 borderOpacity: 255,
+                shadowOpacity: 255,
                 hide: false,
                 highlightPriority: 1
             }
@@ -248,9 +252,10 @@
                     const className = `glowing-border-${status.storageKey}`;
                     const color = status.highlightColor;
                     const bOpacity = Math.round((status?.borderOpacity ?? 255)).toString(16)
+                    const blOpacity = Math.round((status?.blurOpacity ?? 255)).toString(16)
                     const border = `${status.borderSize}px solid ${color + bOpacity}`;
-                    const boxShadow = `0 0 10px ${color + bOpacity}, 0 0 20px ${color + bOpacity}`;
-                    const boxShadowHover = `0 0 15px ${color + bOpacity}, 0 0 30px ${color + bOpacity}`;
+                    const boxShadow = `0 0 10px ${color + blOpacity}, 0 0 20px ${color + blOpacity}`;
+                    const boxShadowHover = `0 0 15px ${color + blOpacity}, 0 0 30px ${color + blOpacity}`;
                     const opacity = status.opacity;
                     const hasBorder = status.borderSize > 0;
                     const hide = status.hide;
@@ -2113,6 +2118,10 @@
                                 <input type="range" id="border_opacity" min="0" max="255" step="1" v-model="currentSettings.borderOpacity">
                             </li>
                             <li>
+                                <label for="box_shadow_opacity">Box Shadow Opacity:</label>
+                                <input type="range" id="box_shadow_opacity" min="0" max="255" step="1" v-model="currentSettings.blurOpacity">
+                            </li>
+                            <li>
                                 <label for="highlight_opacity">Opacity:</label>
                                 <input type="range" id="highlight_opacity" min="0" max="1" step="0.1" v-model="currentSettings.opacity">
                             </li>
@@ -2410,12 +2419,13 @@
                     const borderSize = s.borderSize ?? 0;
                     const hasBorder = borderSize > 0;
                     const bOpacity = Math.round((s?.borderOpacity ?? 255)).toString(16)
+                    const blOpacity = Math.round((s?.blurOpacity ?? 255)).toString(16)
 
                     return {
                         height: '50px',
                         border: hasBorder ? `${s.borderSize}px solid ${s.highlightColor + bOpacity}` : 'none',
                         boxShadow: hasBorder ?
-                            `0 0 10px ${s.highlightColor + bOpacity}, 0 0 20px ${s.highlightColor + bOpacity}` :
+                            `0 0 10px ${s.highlightColor + blOpacity}, 0 0 20px ${s.highlightColor + blOpacity}` :
                             'none',
                         opacity: s.opacity
                     };
