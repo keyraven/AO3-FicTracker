@@ -258,6 +258,7 @@
                     const boxShadowHover = `0 0 15px ${color + blOpacity}, 0 0 30px ${color + blOpacity}`;
                     const opacity = status.opacity;
                     const hasBorder = status.borderSize > 0;
+                    const hasShadow = status.blurOpacity > 0
                     const hide = status.hide;
 
                     // Check if we should hide this status based on bookmarks page setting
@@ -271,12 +272,12 @@
                             border-radius: 8px !important;
                             padding: 15px !important;
                             background-color: transparent !important;
-                            ${hasBorder ? `box-shadow: ${boxShadow} !important;` : 'box-shadow: none !important;'}
+                            ${hasShadow ? `box-shadow: ${boxShadow} !important;` : 'box-shadow: none !important;'}
                             transition: box-shadow 0.3s ease, opacity 0.3s ease !important;
                             opacity: ${opacity};
                         }
                         .${className}:hover {
-                            ${hasBorder ? `box-shadow: ${boxShadowHover} !important;` : ''}
+                            ${hasShadow ? `box-shadow: ${boxShadowHover} !important;` : ''}
                             opacity: 1;
                         }
                     `;
