@@ -268,11 +268,10 @@
                     css += `
                         .${className} {
                             ${shouldHide ? 'display: none !important;' : ''}
-                            ${hasBorder ? `border: ${border} !important;` : 'border: none !important;'}
+                            ${hasBorder ? `border: ${border} !important;` : ''}
                             border-radius: 8px !important;
                             padding: 15px !important;
-                            background-color: transparent !important;
-                            ${hasShadow ? `box-shadow: ${boxShadow} !important;` : 'box-shadow: none !important;'}
+                            ${hasShadow ? `box-shadow: ${boxShadow} !important;` : ''}
                             transition: box-shadow 0.3s ease, opacity 0.3s ease !important;
                             opacity: ${opacity};
                         }
